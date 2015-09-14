@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tic Tac Toe</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+  <link href="css/custom.css" rel="stylesheet" type="text/css"/>
+<!--   <script type="text/javascript">
+    $(document).ready(function(){
+      gameRestart();
+      function gameRestart(){
+        boxValue = "x btn-primary b"
+        $('.boxHolder').removeClass('won');
+        $('.boxHolder').html('');
+        for(i=1; i<=9; i++){
+          $('.boxHolder').append("<div class='span1 btn' id='b" + i + "'> + </div>")
+        }
+      }
+      var boxValue = "x btn-primary b"
+      var wonPlayer;
+      $('.boxHolder .btn').live('click',function(){
+        //alert($('.b').length);
+        if($('.boxHolder').hasClass('won')){
+          alert(wonPlayer + ' has already won this Game');
+          gameRestart();
+        }else if(!($(this).hasClass('x')||$(this).hasClass('o'))){
+          if(boxValue == "x btn-primary b"){
+            $(this).addClass(boxValue).html('X');
+            boxValue = "o btn-success b"
+          }else{
+            $(this).addClass(boxValue).html('O');
+            boxValue = "x btn-primary b"
+          }
+          if(
+                  $('#b1').hasClass('x') && $('#b2').hasClass('x') && $('#b3').hasClass('x')||
+                  $('#b4').hasClass('x') && $('#b5').hasClass('x') && $('#b6').hasClass('x')||
+                  $('#b7').hasClass('x') && $('#b8').hasClass('x') && $('#b9').hasClass('x')||
+                  $('#b1').hasClass('x') && $('#b4').hasClass('x') && $('#b7').hasClass('x')||
+                  $('#b2').hasClass('x') && $('#b5').hasClass('x') && $('#b8').hasClass('x')||
+                  $('#b3').hasClass('x') && $('#b6').hasClass('x') && $('#b9').hasClass('x')||
+                  $('#b1').hasClass('x') && $('#b5').hasClass('x') && $('#b9').hasClass('x')||
+                  $('#b3').hasClass('x') && $('#b5').hasClass('x') && $('#b7').hasClass('x')
+                  ){
+            $('.boxHolder').addClass('won');
+            wonPlayer = 'X';
+            var xOldValue = $('#prependedInput1').val();
+            var xNewValue = parseInt(xOldValue) + 1;
+            $('#prependedInput1').val(xNewValue);
+            boxValue = "x btn-primary b"
+            alert('X has won the game');
+          }else if(
+                  $('#b1').hasClass('o') && $('#b2').hasClass('o') && $('#b3').hasClass('o')||
+                  $('#b4').hasClass('o') && $('#b5').hasClass('o') && $('#b6').hasClass('o')||
+                  $('#b7').hasClass('o') && $('#b8').hasClass('o') && $('#b9').hasClass('o')||
+                  $('#b1').hasClass('o') && $('#b4').hasClass('o') && $('#b7').hasClass('o')||
+                  $('#b2').hasClass('o') && $('#b5').hasClass('o') && $('#b8').hasClass('o')||
+                  $('#b3').hasClass('o') && $('#b6').hasClass('o') && $('#b9').hasClass('o')||
+                  $('#b1').hasClass('o') && $('#b5').hasClass('o') && $('#b9').hasClass('o')||
+                  $('#b3').hasClass('o') && $('#b5').hasClass('o') && $('#b7').hasClass('o')
+                  ){
+            $('.boxHolder').addClass('won');
+            wonPlayer = 'O';
+            var oOldValue = $('#prependedInput2').val();
+            var oNewValue = parseInt(oOldValue) + 1;
+            $('#prependedInput2').val(oNewValue);
+            alert('O has won the game');
+          }else if($('.b').length == 9){
+            alert('Game is Tie, it will restart');
+            gameRestart()
+          }
+        }else{
+          alert('Already have value, please click on another box.')
+        }
+
+      })
+      $('a.refreshGame').click(function(){
+        gameRestart()
+      })
+    })
+  </script> -->
+</head>
+<body>
+  <div class="container wrapper">
+    <div class="pull-left name"></div>
+    <a class="pull-right logout" href="/tic/signup.html">Logout</a>
+    <div class="row ">
+      <div class="span3 ">
+        <form>
+          <div class="control-group clearfix">
+            <div class="controls">
+              <div class="input-prepend pull-left">
+                <span class="add-on">X</span><input class="span1" id="prependedInput1" size="16" type="text" value="0">
+              </div>
+              <div class="input-prepend pull-left oCount">
+                <span class="add-on">O</span><input class="span1" id="prependedInput2" size="16" type="text" value="0">
+              </div>
+            </div>
+          </div>
+        </form>
+        <div class="row boxHolder">
+
+        </div>
+        <a href="#" class="refreshGame btn">Refresh</a>
+      </div>
+    </div>
+  </div>
+  <script src="js/jquery-1.7.2.min.js" type="text/javascript"></script>
+  <script src="js/pouchdb-4.0.1.min.js" type="text/javascript"></script>
+  <script src="js/custom.js" type="text/javascript"></script>
+</body>
+</html>

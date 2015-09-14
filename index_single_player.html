@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Tic Tac Toe</title>
+<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<link href="css/custom.css" rel="stylesheet" type="text/css"/>
+<script src="js/jquery-1.7.2.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+  gameRestart()
+  playerBoxValue = "x btn-primary b"
+  computerBoxValue = "o btn-success b"
+  function gameRestart() {
+    $('.boxHolder').removeClass('won');
+    $('.boxHolder').html('');
+    for (i = 1; i <= 9; i++) {
+      $('.boxHolder').append("<div class='span1 btn' id='b" + i + "'> + </div>")
+    }
+  }
+
+  var boxValue = "x btn-primary b"
+  var wonPlayer;
+  $('.boxHolder .btn').live('click', function () {
+    if($('.boxHolder').hasClass('won')){
+      alert(wonPlayer + ' has already won this Game');
+      gameRestart();
+    }else if(!($(this).hasClass('x')||$(this).hasClass('o'))){
+      $(this).addClass(playerBoxValue).html('X');
+      whoWinBefore();
+      //computerPlay();
+    }
+  });
+  function computerPlay() {
+    if ($('.o').length == 0) {
+      computerFirstPlay()
+    } else if ($('.o').length == 1) {
+      computerSecondPlay()
+    } else if ($('.o').length == 2) {
+      computerThiredPlay()
+    }
+    whoWinAfter();
+  }
+
+  function computerFirstPlay() {
+    var fc = Math.ceil(Math.random() * 9);
+    if ($('#b5').hasClass('x')) {
+      if ((fc == 1) || (fc == 3) || (fc == 7) || (fc == 9)) {
+        cRandomClick = "#b" + fc;
+        $(cRandomClick).addClass(computerBoxValue).html('O');
+      } else {
+        computerFirstPlay();
+      }
+
+    } else {
+      $('#b5').addClass(computerBoxValue).html('O');
+    }
+  }
+
+  function computerSecondPlay() {
+    var secondPlay;
+    var c1 = $('#b1').hasClass('x');
+    var c2 = $('#b2').hasClass('x');
+    var c3 = $('#b3').hasClass('x');
+    var c4 = $('#b4').hasClass('x');
+    var c5 = $('#b5').hasClass('x');
+    var c6 = $('#b6').hasClass('x');
+    var c7 = $('#b7').hasClass('x');
+    var c8 = $('#b8').hasClass('x');
+    var c9 = $('#b9').hasClass('x');
+    var cc1 = [ 'b1', 'b2', 'b3' ];
+    var cc2 = [ 'b4', 'b5', 'b6' ];
+    var cc3 = [ 'b7', 'b8', 'b9' ];
+    var cc4 = [ 'b1', 'b4', 'b7' ];
+    var cc5 = [ 'b2', 'b5', 'b8' ];
+    var cc6 = [ 'b3', 'b6', 'b9' ];
+    var cc7 = [ 'b1', 'b5', 'b9' ];
+    var cc8 = [ 'b3', 'b5', 'b7' ];
+//        if($('#b1').hasClass('x') && $('#b2').hasClass('x')){
+    if ((c1 && c2) || (c2 && c3) || (c1 && c3)) {
+      $.each(cc1, function () {
+        if (!($("#" + this).hasClass('x')) && !($("#" + this).hasClass('o'))) {
+          secondPlay = this;
+        }
+      });
+    } else if ((c4 && c5) || (c5 && c6) || (c4 && c6)) {
+      $.each(cc2, function () {
+        if (!($("#" + this).hasClass('x')) && !($("#" + this).hasClass('o'))) {
+          secondPlay = this;
+        }
+      });
+    } else if ((c7 && c8) || (c8 && c9) || (c7 && c9)) {
+      $.each(cc3, function () {
+        if (!($("#" + this).hasClass('x')) && !($("#" + this).hasClass('o'))) {
+          secondPlay = this;
+        }
+      });
+    } else if ((c1 && c4) || (c4 && c7) || (c1 && c7)) {
+      $.each(cc4, function () {
+        if (!($("#" + this).hasClass('x')) && !($("#" + this).hasClass('o'))) {
+          secondPlay = this;
+        }
+      });
+    } else if ((c2 && c5) || (c5 && c8) || (c2 && c8)) {
+      $.each(cc5, function () {
+        if (!($("#" + this).hasClass('x')) && !($("#" + this).hasClass('o'))) {
+          secondPlay = this;
+        }
+      });
+    } else if ((c3 && c6) || (c6 && c9) || (c3 && c9)) {
+      $.each(cc6, function () {
+        if (!($("#" + this).hasClass('x')) && !($("#" + this).hasClass('o'))) {
+          secondPlay = this;
+        }
+      });
+    } else if ((c1 && c5) || (c5 && c9) || (c1 && c9)) {
+      $.each(cc7, function () {
+        if (!($("#" + this).hasClass('x')) && !($("#" + this).hasClass('o'))) {
+          secondPlay = this;
+        }
+      });
+    } else if ((c3 && c5) || (c5 && c7) || (c3 && c7)) {
+      $.each(cc8, function () {
+        if (!($("#" + this).hasClass('x')) && !($("#" + this).hasClass('o'))) {
+          secondPlay = this;
+        }
+      });
+    } else {
+      var fc = Math.ceil(Math.random() * 9);
+      if ((fc == 1) || (fc == 3) || (fc == 7) || (fc == 9)) {
+        cRandomClick = "#b" + fc;
+        if ($(cRandomClick).hasClass('x') || $(cRandomClick).hasClass('o')) {
+          computerSecondPlay();
+        } else {
+          $(cRandomClick).addClass(computerBoxValue).html('O');
+        }
+      } else {
+        computerSecondPlay();
+      }
+
+    }
+    $("#" + secondPlay).addClass(computerBoxValue).html('O');
+  }
+
+  function computerThiredPlay() {
+    var secondPlay;
+    var c1 = $('#b1').hasClass('x');
+    var c2 = $('#b2').hasClass('x');
+    var c3 = $('#b3').hasClass('x');
+    var c4 = $('#b4').hasClass('x');
+    var c5 = $('#b5').hasClass('x');
+    var c6 = $('#b6').hasClass('x');
+    var c7 = $('#b7').hasClass('x');
+    var c8 = $('#b8').hasClass('x');
+    var c9 = $('#b9').hasClass('x');
+    var o1 = $('#b1').hasClass('o');
+    var o2 = $('#b2').hasClass('o');
+    var o3 = $('#b3').hasClass('o');
+    var o4 = $('#b4').hasClass('o');
+    var o5 = $('#b5').hasClass('o');
+    var o6 = $('#b6').hasClass('o');
+    var o7 = $('#b7').hasClass('o');
+    var o8 = $('#b8').hasClass('o');
+    var o9 = $('#b9').hasClass('o');
+    var cO1 = !($('#b1').hasClass('o'));
+    var cO2 = !($('#b2').hasClass('o'));
+    var cO3 = !($('#b3').hasClass('o'));
+    var cO4 = !($('#b4').hasClass('o'));
+    var cO5 = !($('#b5').hasClass('o'));
+    var cO6 = !($('#b6').hasClass('o'));
+    var cO7 = !($('#b7').hasClass('o'));
+    var cO8 = !($('#b8').hasClass('o'));
+    var cO9 = !($('#b9').hasClass('o'));
+    var cc1 = [ 'b1', 'b2', 'b3' ];
+    var cc2 = [ 'b4', 'b5', 'b6' ];
+    var cc3 = [ 'b7', 'b8', 'b9' ];
+    var cc4 = [ 'b1', 'b4', 'b7' ];
+    var cc5 = [ 'b2', 'b5', 'b8' ];
+    var cc6 = [ 'b3', 'b6', 'b9' ];
+    var cc7 = [ 'b1', 'b5', 'b9' ];
+    var cc8 = [ 'b3', 'b5', 'b7' ];
+//        if($('#b1').hasClass('x') && $('#b2').hasClass('x')){
+    if (((c1 && c2) || (c2 && c3) || (c1 && c3)) && (cO1 && cO2 && cO3)) {
+      $.each(cc1, function () {
+        if (!($("#" + this).hasClass('x'))) {
+          secondPlay = this;
+        }
+      });
+    } else if (((c4 && c5) || (c5 && c6) || (c4 && c6)) && (cO4 && cO5 && cO6)) {
+      $.each(cc2, function () {
+        if (!($("#" + this).hasClass('x'))) {
+          secondPlay = this;
+        }
+      });
+    } else if (((c7 && c8) || (c8 && c9) || (c7 && c9)) && (cO7 && cO8 && cO9)) {
+      $.each(cc3, function () {
+        if (!($("#" + this).hasClass('x'))) {
+          secondPlay = this;
+        }
+      });
+    } else if (((c1 && c4) || (c4 && c7) || (c1 && c7)) && (cO4 && cO7 && cO1)) {
+      $.each(cc4, function () {
+        if (!($("#" + this).hasClass('x'))) {
+          secondPlay = this;
+        }
+      });
+    } else if (((c2 && c5) || (c5 && c8) || (c2 && c8)) && (cO2 && cO5 && cO8)) {
+      $.each(cc5, function () {
+        if (!($("#" + this).hasClass('x'))) {
+          secondPlay = this;
+        }
+      });
+    } else if (((c3 && c6) || (c6 && c9) || (c3 && c9)) && (cO3 && cO6 && cO9)) {
+      $.each(cc6, function () {
+        if (!($("#" + this).hasClass('x'))) {
+          secondPlay = this;
+        }
+      });
+    } else if (((c1 && c5) || (c5 && c9) || (c1 && c9)) && (cO1 && cO5 && cO9)) {
+      $.each(cc7, function () {
+        if (!($("#" + this).hasClass('x'))) {
+          secondPlay = this;
+        }
+      });
+    } else if (((c3 && c5) || (c5 && c7) || (c3 && c7)) && (cO3 && cO5 && cO7)) {
+      $.each(cc8, function () {
+        if (!($("#" + this).hasClass('x'))) {
+          secondPlay = this;
+        }
+      });
+    }if ((o1 && o2) || (o2 && o3) || (o1 && o3)) {
+      $.each(cc1, function () {
+        if (!($("#" + this).hasClass('x')) && !($("#" + this).hasClass('o'))) {
+          secondPlay = this;
+        }
+      });
+    } else if ((o4 && o5) || (o5 && o6) || (o4 && o6)) {
+      $.each(cc2, function () {
+        if (!($("#" + this).hasClass('x')) && !($("#" + this).hasClass('o'))) {
+          secondPlay = this;
+        }
+      });
+    } else if ((o7 && o8) || (o8 && o9) || (o7 && o9)) {
+      $.each(cc3, function () {
+        if (!($("#" + this).hasClass('x')) && !($("#" + this).hasClass('o'))) {
+          secondPlay = this;
+        }
+      });
+    } else if ((o1 && o4) || (o4 && o7) || (o1 && o7)) {
+      $.each(cc4, function () {
+        if (!($("#" + this).hasClass('x')) && !($("#" + this).hasClass('o'))) {
+          secondPlay = this;
+        }
+      });
+    } else if ((o2 && o5) || (o5 && o8) || (o2 && o8)) {
+      $.each(cc5, function () {
+        if (!($("#" + this).hasClass('x')) && !($("#" + this).hasClass('o'))) {
+          secondPlay = this;
+        }
+      });
+    } else if ((o3 && o6) || (o6 && o9) || (o3 && o9)) {
+      $.each(cc6, function () {
+        if (!($("#" + this).hasClass('x')) && !($("#" + this).hasClass('o'))) {
+          secondPlay = this;
+        }
+      });
+    } else if ((o1 && o5) || (o5 && o9) || (o1 && o9)) {
+      $.each(cc7, function () {
+        if (!($("#" + this).hasClass('x')) && !($("#" + this).hasClass('o'))) {
+          secondPlay = this;
+        }
+      });
+    } else if ((o3 && o5) || (o5 && o7) || (o3 && o7)) {
+      $.each(cc8, function () {
+        if (!($("#" + this).hasClass('x')) && !($("#" + this).hasClass('o'))) {
+          secondPlay = this;
+        }
+      });
+    }
+    alert(secondPlay);
+    $("#" + secondPlay).addClass(computerBoxValue).html('O');
+  }
+
+  function whoWinBefore(){
+    if(
+            $('#b1').hasClass('x') && $('#b2').hasClass('x') && $('#b3').hasClass('x')||
+            $('#b4').hasClass('x') && $('#b5').hasClass('x') && $('#b6').hasClass('x')||
+            $('#b7').hasClass('x') && $('#b8').hasClass('x') && $('#b9').hasClass('x')||
+            $('#b1').hasClass('x') && $('#b4').hasClass('x') && $('#b7').hasClass('x')||
+            $('#b2').hasClass('x') && $('#b5').hasClass('x') && $('#b8').hasClass('x')||
+            $('#b3').hasClass('x') && $('#b6').hasClass('x') && $('#b9').hasClass('x')||
+            $('#b1').hasClass('x') && $('#b5').hasClass('x') && $('#b9').hasClass('x')||
+            $('#b3').hasClass('x') && $('#b5').hasClass('x') && $('#b7').hasClass('x')
+            ){
+      $('.boxHolder').addClass('won');
+      wonPlayer = 'X';
+      var xOldValue = $('#prependedInput1').val();
+      var xNewValue = parseInt(xOldValue) + 1;
+      $('#prependedInput1').val(xNewValue);
+      boxValue = "x btn-primary b"
+      alert('X has won the game');
+    }else if(
+            $('#b1').hasClass('o') && $('#b2').hasClass('o') && $('#b3').hasClass('o')||
+            $('#b4').hasClass('o') && $('#b5').hasClass('o') && $('#b6').hasClass('o')||
+            $('#b7').hasClass('o') && $('#b8').hasClass('o') && $('#b9').hasClass('o')||
+            $('#b1').hasClass('o') && $('#b4').hasClass('o') && $('#b7').hasClass('o')||
+            $('#b2').hasClass('o') && $('#b5').hasClass('o') && $('#b8').hasClass('o')||
+            $('#b3').hasClass('o') && $('#b6').hasClass('o') && $('#b9').hasClass('o')||
+            $('#b1').hasClass('o') && $('#b5').hasClass('o') && $('#b9').hasClass('o')||
+            $('#b3').hasClass('o') && $('#b5').hasClass('o') && $('#b7').hasClass('o')
+            ){
+      $('.boxHolder').addClass('won');
+      wonPlayer = 'O';
+      var oOldValue = $('#prependedInput2').val();
+      var oNewValue = parseInt(oOldValue) + 1;
+      $('#prependedInput2').val(oNewValue);
+      alert('O has won the game');
+    }else if($('.b').length == 9){
+      alert('Game is Tie, it will restart');
+      gameRestart()
+    }else {
+      computerPlay();
+    }
+  }
+
+  function whoWinAfter(){
+    if(
+            $('#b1').hasClass('x') && $('#b2').hasClass('x') && $('#b3').hasClass('x')||
+                    $('#b4').hasClass('x') && $('#b5').hasClass('x') && $('#b6').hasClass('x')||
+                    $('#b7').hasClass('x') && $('#b8').hasClass('x') && $('#b9').hasClass('x')||
+                    $('#b1').hasClass('x') && $('#b4').hasClass('x') && $('#b7').hasClass('x')||
+                    $('#b2').hasClass('x') && $('#b5').hasClass('x') && $('#b8').hasClass('x')||
+                    $('#b3').hasClass('x') && $('#b6').hasClass('x') && $('#b9').hasClass('x')||
+                    $('#b1').hasClass('x') && $('#b5').hasClass('x') && $('#b9').hasClass('x')||
+                    $('#b3').hasClass('x') && $('#b5').hasClass('x') && $('#b7').hasClass('x')
+            ){
+      $('.boxHolder').addClass('won');
+      wonPlayer = 'X';
+      var xOldValue = $('#prependedInput1').val();
+      var xNewValue = parseInt(xOldValue) + 1;
+      $('#prependedInput1').val(xNewValue);
+      boxValue = "x btn-primary b"
+      alert('X has won the game');
+    }else if(
+            $('#b1').hasClass('o') && $('#b2').hasClass('o') && $('#b3').hasClass('o')||
+                    $('#b4').hasClass('o') && $('#b5').hasClass('o') && $('#b6').hasClass('o')||
+                    $('#b7').hasClass('o') && $('#b8').hasClass('o') && $('#b9').hasClass('o')||
+                    $('#b1').hasClass('o') && $('#b4').hasClass('o') && $('#b7').hasClass('o')||
+                    $('#b2').hasClass('o') && $('#b5').hasClass('o') && $('#b8').hasClass('o')||
+                    $('#b3').hasClass('o') && $('#b6').hasClass('o') && $('#b9').hasClass('o')||
+                    $('#b1').hasClass('o') && $('#b5').hasClass('o') && $('#b9').hasClass('o')||
+                    $('#b3').hasClass('o') && $('#b5').hasClass('o') && $('#b7').hasClass('o')
+            ){
+      $('.boxHolder').addClass('won');
+      wonPlayer = 'O';
+      var oOldValue = $('#prependedInput2').val();
+      var oNewValue = parseInt(oOldValue) + 1;
+      $('#prependedInput2').val(oNewValue);
+      alert('O has won the game');
+    }else if($('.b').length == 9){
+      alert('Game is Tie, it will restart');
+      gameRestart()
+    }
+  }
+
+  $('a.refreshGame').click(function () {
+    gameRestart()
+  })
+})
+</script>
+</head>
+<body>
+<div class="container wrapper">
+  <div class="row ">
+    <div class="span3 offset4">
+      <form>
+        <div class="control-group">
+          <div class="controls">
+            <div class="input-prepend pull-left">
+              <span class="add-on">X</span><input class="span1" id="prependedInput1" size="16" type="text" value="0" />
+            </div>
+            <div class="input-prepend pull-left oCount">
+              <span class="add-on">O</span><input class="span1" id="prependedInput2" size="16" type="text" value="0" />
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="row boxHolder">
+
+      </div>
+    </div>
+    <div class="span3">
+      <a href="#" class="refreshGame btn">Refresh</a>
+    </div>
+  </div>
+</div>
+</body>
+</html>
