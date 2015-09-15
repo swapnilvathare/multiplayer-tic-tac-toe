@@ -1,4 +1,4 @@
-  var db = new PouchDB('tictac4');
-  var remoteCouch = 'http://10.0.0.127:5984/tictac4';
-PouchDB.sync('tictac4', 'http://10.0.0.127:5984/tictac4');
+  var db = new PouchDB('tictac5');
+  var remoteCouch = 'http://10.0.0.127:5984/tictac5';
+PouchDB.sync('tictac5', 'http://10.0.0.127:5984/tictac5');
  

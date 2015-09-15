@@ -1,5 +1,28 @@
-function createGame () {
-	if(!checkRunningGame){
+
+var checkRunningGame = function(){
+	console.log('hi re');
+	db.allDocs({include_docs: true, descending: true}, function(err, doc) {
+	  	checkNow(doc.rows);
+	});
+}
+function checkNow(users){
+	var firstUser = getCookie("username");
+	var giveReturn = false; 
+    users.forEach(function(user) {
+		if(user.doc.type == "game"){
+			if(user.doc.user == firstUser){
+				if(user.doc.finished == false){
+					giveReturn = true;
+    				console.log(giveReturn);
+				}
+	    	}
+		}
+	});
+    createGame(giveReturn);
+}
+
+function createGame (check) {
+	if(!check){
 		//console.log(getCookie("username"));
 		var firstUser = getCookie("username");
 
@@ -21,26 +44,6 @@ function createGame () {
 	}
 
 };
-var checkRunningGame = function(){
-	var firstUser = getCookie("username");
-	db.allDocs({include_docs: true, descending: true}, function(err, doc) {
-	  	console.log(doc.rows);
-	    redrawGame(doc.rows);
-	    var giveReturn = false;
-	    doc.rows.forEach(function(user) {
-			//console.log(user.doc.type);
-			if(user.doc.type == "game"){
-				if(user.doc.user == firstUser){
-					if(user.doc.finished == false){
-						giveReturn = true;
-					}
-		    	}
-			}
-		});
-		return giveReturn;
-
-	});
-}
 function createdGames() {
 	//var sync = PouchDB.sync('tictac1', 'http://10.0.0.127:5984/tictac1')
 	db.replicate.from(remoteCouch);
@@ -85,7 +88,7 @@ function redrawGame(users) {
 	});
 };
 createdGames();
-var sync = PouchDB.sync('tictac4', 'http://10.0.0.127:5984/tictac4', {
+var sync = PouchDB.sync('tictac5', 'http://10.0.0.127:5984/tictac5', {
   live: true,
   retry: true
 }).on('change',  createdGames);

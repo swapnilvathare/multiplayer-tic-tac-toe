@@ -50,7 +50,7 @@ function startGame(){
 
 
   $('.name').html("Welcome " + getCookie("username"));
-  console.log('hi');
+  //console.log('hi');
   function gameRestart(){
     boxValue = "x btn-primary b"
     $('.boxHolder').removeClass('won');
