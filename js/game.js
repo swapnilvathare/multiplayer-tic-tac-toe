@@ -85,7 +85,7 @@ function redrawGame(users) {
 	});
 };
 createdGames();
-var sync = PouchDB.sync('tictac3', 'http://10.0.0.127:5984/tictac3', {
+var sync = PouchDB.sync('tictac4', 'http://10.0.0.127:5984/tictac4', {
   live: true,
   retry: true
 }).on('change',  createdGames);
