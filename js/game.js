@@ -51,13 +51,32 @@ function createdGames() {
   });
 };
 function createUserList(user){
-	//return "<li>"+ user.name +"</li>";
-	return "<tr><td>"+user.user+"</td><td> <button class='btn btn-primary'>Join</button></td></tr>";
+	//return "<li>"+ user.name +"</li>";var deleteLink = document.createElement('button');
+    var deleteLink = document.createElement('button');
+    deleteLink.innerHTML ='Join';
+    deleteLink.className = 'destroy';
+    deleteLink.addEventListener( 'click', deleteButtonPressed.bind(this, user));
+    
+    var lableLink = document.createElement('lable');
+    lableLink.innerHTML = user.user
+    var li = document.createElement('li');
+    li.appendChild(lableLink);
+    li.appendChild(deleteLink);
+
+    return li;
+	//return "<tr><td>"+user.user+"</td><td> <button class='btn btn-primary'>Join</button></td></tr>";
 };
+function deleteButtonPressed(user){
+	var secondUser = getCookie("username");
+	user.join = true;
+	user.sUser = secondUser;
+	db.put(user);
+}
 function redrawGame(users) {
 	var ul = $('#game-list tbody');
 	ul.html('');
 	users.forEach(function(user) {
+
 		//console.log(user.doc.type);
 		if(user.doc.type == "game"){
 	    	$('#game-list tbody').append(createUserList(user.doc));
