@@ -43,12 +43,12 @@ function redrawGame(users) {
 	});
 };
 createdGames();
- db.changes({
+/* db.changes({
     since: 'now',
     live: true,
     retry: true
-  }).on('change', createdGames);
-var sync = PouchDB.sync('tictac2', 'http://10.0.0.127:5984/tictac2', {
+  }).on('change', createdGames);*/
+var sync = PouchDB.sync('tictac3', 'http://10.0.0.127:5984/tictac3', {
   live: true,
   retry: true
 }).on('change',  createdGames);
