@@ -3,14 +3,14 @@
 
 (function() {
 
-    console.log('hi1');
+    //console.log('hi1');
     var username=getCookie("username");
     if (username!="") {
-    console.log('hi2');
+    //console.log('hi2');
         //alert("Welcome again " + username);
         startGame();
     }else{
-          console.log(username);
+          //console.log(username);
           window.location.assign("/tic/signup.html");
         //username = prompt("Please enter your name:", "");
         if (username != "" && username != null) {
